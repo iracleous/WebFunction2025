@@ -54,8 +54,8 @@ functionApp="myFunctwrt2025"
  
  #######
  #  pull code from github
- repoUrl="https://github.com/your-username/your-repo"
-branch="main"
+repoUrl="https://github.com/iracleous/WebFunction2025"
+branch="master"
 
 # Configure deployment from GitHub
 az functionapp deployment source config \

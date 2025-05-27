@@ -32,7 +32,7 @@ public class Function1
 
     private static TableClient GetTableClient()
     {
-        string? connectionString = "DefaultEndpointsProtocol=https;AccountName=nostos2025;AccountKey=meseou/nyvWjKZ/0qsmYDY5ZTDnF2EFrqBYTFvz+doQjr75BuPdn8dbJcGQLiFPc6TKXNTGeZB/M+AStjO7W3w==;EndpointSuffix=core.windows.net";
+        string? connectionString = @"DefaultEndpointsProtocol=https;EndpointSuffix=core.windows.net;AccountName=sia23vati2025;AccountKey=B7TcMQYKYFvH6+MwFwV+wK2m0MH0n3NrHZmanQLjlsdyeHj8BEeGdWEWg3tBBJ3l/y2cM4b1Ya13+ASt/M8x4Q==;BlobEndpoint=https://sia23vati2025.blob.core.windows.net/;FileEndpoint=https://sia23vati2025.file.core.windows.net/;QueueEndpoint=https://sia23vati2025.queue.core.windows.net/;TableEndpoint=https://sia23vati2025.table.core.windows.net/";
             //Environment.GetEnvironmentVariable("AzureWebJobsStorage");
         var client = new TableClient(connectionString, TableName);
         client.CreateIfNotExists();
