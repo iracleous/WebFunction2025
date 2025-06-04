@@ -74,7 +74,7 @@ public class Function1
         }
     }
 
-    [Function("GetItem")]
+    [Function("GetItem2")]
     public static   IActionResult Hello(
           [HttpTrigger(AuthorizationLevel.Function, "get", Route = "hello")] HttpRequest req,
            
