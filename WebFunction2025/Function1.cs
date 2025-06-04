@@ -74,5 +74,18 @@ public class Function1
         }
     }
 
+    [Function("GetItem")]
+    public static   IActionResult Hello(
+          [HttpTrigger(AuthorizationLevel.Function, "get", Route = "hello")] HttpRequest req,
+           
+          ILogger log)
+    {
+
+
+        return new OkObjectResult(new
+        {
+            message = "all ok"
+        });
+    }
 
 }

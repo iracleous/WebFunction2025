@@ -28,13 +28,13 @@ storage_account_connection_string=$(az storage account show-connection-string --
 echo ${storage_account_connection_string}
 
 
- #1 create storage account with table container
+# 1 create storage account with table container
  az storage table create --name myTable --account-name ${storage_account_name} --connection-string "${storage_account_connection_string}"
 
 
  #######
 
- # Create a storage container for blobs
+# Create a storage container for blobs
  az storage container create --name myBlobContainer --account-name ${storage_account_name} --connection-string "${storage_account_connection_string}"
 
 
@@ -47,15 +47,34 @@ echo ${storage_account_connection_string}
 
 functionApp="myFunctwrt2025"
 
- #2 create function app with storage account
+# 2 create function app with storage account
  az functionapp create --name ${functionApp} --storage-account ${storage_account_name} \
  --resource-group ${resource_group_name} --plan myAppServicePlan --runtime dotnet --runtime-version 8.0 --functions-version 4 --os-type Linux
 
  
  #######
- #  pull code from github
+#  pull code from github
 repoUrl="https://github.com/iracleous/WebFunction2025"
 branch="master"
+
+Pull code from GitHub and configure deployment
+# Pull code from GitHub and configure deployment
+# Ensure the Azure CLI is logged in
+az login
+# Ensure the Azure CLI is set to the correct subscription
+az account set --subscription "Your Subscription Name"
+# Ensure the resource group exists
+az group create --name "$resourceGroup" --location "$location"
+# Define variables
+resourceGroup="myResourceGroup"
+location="northeurope"
+functionApp="myFunctwrt2025"
+
+pull from public repository
+
+
+
+
 
 # Configure deployment from GitHub
 az functionapp deployment source config \
