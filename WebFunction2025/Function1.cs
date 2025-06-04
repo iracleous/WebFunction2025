@@ -1,14 +1,14 @@
+using Azure;
+using Azure.Data.Tables;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
  
 using Newtonsoft.Json;
-
-using WebFunction2025.Models;
-using Azure.Data.Tables;
-using Azure;
 using System.Net;
+using WebFunction2025.Models;
 
 namespace WebFunction2025;
 
@@ -18,10 +18,26 @@ public class Function1
     private const string TableName = "ItemsTable";
     private const string PartitionKey = "DefaultPartition";
 
-    public Function1(ILogger<Function1> logger)
+    
+
+    public Function1(ILogger<Function1> logger )
     {
         _logger = logger;
+        
     }
+
+    [Function("HealthProbe")]
+    public     IActionResult  Run(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ping")] HttpRequest req)
+    {
+        _logger.LogInformation("Health check probe received.");
+
+        
+            return new OkObjectResult("Healthy"); // Return 200 OK
+       
+    }
+ 
+ 
 
     
 
@@ -73,19 +89,6 @@ public class Function1
             return new NotFoundObjectResult("Item not found");
         }
     }
-
-    [Function("GetItem2")]
-    public static   IActionResult Hello(
-          [HttpTrigger(AuthorizationLevel.Function, "get", Route = "hello")] HttpRequest req,
-           
-          ILogger log)
-    {
-
-
-        return new OkObjectResult(new
-        {
-            message = "all ok"
-        });
-    }
+ 
 
 }
