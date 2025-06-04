@@ -36,8 +36,7 @@ public class Function1
 
     [Function("CreateItem")]
     public   async Task<IActionResult> CreateItem(
-          [HttpTrigger(AuthorizationLevel.Function, "post", Route = "items")] HttpRequest req,
-          ILogger log)
+          [HttpTrigger(AuthorizationLevel.Function, "post", Route = "items")] HttpRequest req )
     {
         var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
         var data = JsonConvert.DeserializeObject<Item>(requestBody);
@@ -58,8 +57,7 @@ public class Function1
     [Function("GetItem")]
     public   async Task<IActionResult> GetItem(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "items/{id}")] HttpRequest req,
-            string id,
-            ILogger log)
+            string id )
     {
         var client = GetTableClient();
 
@@ -75,9 +73,7 @@ public class Function1
     }
     [Function("GetItem3")]
     public      IActionResult  GetItem3(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "items2")] HttpRequest req,
-            
-            ILogger log)
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "items2")] HttpRequest req )
     {
          
            
@@ -90,18 +86,16 @@ public class Function1
 
     [Function("GetItem2")]
     public   IActionResult Ping(
-           [HttpTrigger(AuthorizationLevel.Function, "get", Route = "ping")] HttpRequest req,
-           ILogger log)
+           [HttpTrigger(AuthorizationLevel.Function, "get", Route = "ping")] HttpRequest req )
     {
         return new OkObjectResult(new { message = "Pang" });
     }
 
     [Function("GetItem5")]
     public IActionResult GetItem5(
-      [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "items21")] HttpRequest req,
-      ILogger log)
+      [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "items21")] HttpRequest req )
     {
-        log.LogDebug("Logging message template: {Message}", "fff");
+        _logger.LogDebug("Logging message template: {Message}", "fff");
         return new OkObjectResult(new { id = 2, value = "gpt iy" });
     }
 
