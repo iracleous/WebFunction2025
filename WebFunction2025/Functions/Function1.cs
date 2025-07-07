@@ -15,8 +15,6 @@ namespace WebFunction2025.Functions;
 public class Function1
 {
     private readonly ILogger<Function1> _logger;
-    private const string TableName = "ItemsTable";
-    private const string PartitionKey = "DefaultPartition";
 
     public Function1(ILogger<Function1> logger)
     {
@@ -27,6 +25,7 @@ public class Function1
     public   IActionResult Ping(
            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ping")] HttpRequest req )
     {
+        _logger.LogInformation("Ping function called at {Time}", DateTime.UtcNow);
         return new OkObjectResult(new { message = "Pang" });
     }
 
@@ -35,7 +34,8 @@ public class Function1
     public      IActionResult  GetItem3(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "items2")] HttpRequest req )
     {
-            return new OkObjectResult(new { id = 2, value = "gpt iy" });
+        _logger.LogInformation("GetItem3 function called at {Time}", DateTime.UtcNow);
+        return new OkObjectResult(new { id = 2, value = "gpt iy" });
     }
 
 
