@@ -7,11 +7,8 @@ using Microsoft.Extensions.Configuration;
 
 //FunctionsApplication.CreateBuilder(args);
 var builder = new HostBuilder()
-    .ConfigureFunctionsWebApplication()
-     .ConfigureAppConfiguration(config =>
-     {
-        config.AddEnvironmentVariables(); // Important for Azure!
-     })
+     .ConfigureFunctionsWebApplication()
+     
     .ConfigureServices(services =>
     {
         services.AddScoped<IStorageService, StorageService>();

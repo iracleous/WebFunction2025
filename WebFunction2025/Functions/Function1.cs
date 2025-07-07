@@ -3,13 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
-using Newtonsoft.Json;
-
-using WebFunction2025.Models;
-using Azure.Data.Tables;
-using Azure;
-using System.Net;
-
 namespace WebFunction2025.Functions;
 
 public class Function1
