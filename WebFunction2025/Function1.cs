@@ -35,10 +35,7 @@ public class Function1
     public      IActionResult  GetItem3(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "items2")] HttpRequest req )
     {
-         
-           
             return new OkObjectResult(new { id = 2, value = "gpt iy" });
-         
     }
 
 
