@@ -28,14 +28,10 @@ storage_account_connection_string=$(az storage account show-connection-string --
 echo ${storage_account_connection_string}
 
 
-# 1 create storage account with table container
- az storage table create --name myTable --account-name ${storage_account_name} --connection-string "${storage_account_connection_string}"
-
-
  #######
 
 # Create a storage container for blobs
- az storage container create --name myBlobContainer --account-name ${storage_account_name} --connection-string "${storage_account_connection_string}"
+ az storage container create --name myblobcontainer --account-name ${storage_account_name} --connection-string "${storage_account_connection_string}"
 
 
  ### --->
@@ -57,36 +53,32 @@ functionApp="myFunctwrt2025"
 repoUrl="https://github.com/iracleous/WebFunction2025"
 branch="master"
 
-Pull code from GitHub and configure deployment
-# Pull code from GitHub and configure deployment
-# Ensure the Azure CLI is logged in
-az login
-# Ensure the Azure CLI is set to the correct subscription
-az account set --subscription "Your Subscription Name"
-# Ensure the resource group exists
-az group create --name "$resourceGroup" --location "$location"
-# Define variables
-resourceGroup="myResourceGroup"
-location="northeurope"
-functionApp="myFunctwrt2025"
 
-pull from public repository
-
-
-
-
-
+ 
 # Configure deployment from GitHub
 az functionapp deployment source config \
-  --name "$functionApp" \
-  --resource-group "$resourceGroup" \
-  --repo-url "$repoUrl" \
-  --branch "$branch" \
+  --name ${functionApp}  \
+  --resource-group $resource_group_name \
+  --repo-url $repoUrl \
+  --branch $branch \
   --manual-integration
 
 
 
- #1 create storage account with table container
 
- #3 create function with HTTP trigger and link to storage account
- #4 create function with timer trigger and link to storage account
+  -- use Build-> Publish
+# Pull code from GitHub  
+
+az functionapp deployment source sync \
+  --name ${functionApp} \
+  --resource-group $resource_group_name
+
+
+ #3 create function with HTTP trigger and interact with  storage account
+ 
+###################################
+
+https://myfunctwrt2025.azurewebsites.net/
+https://myfunctwrt2025.azurewebsites.net/api/ping
+https://myfunctwrt2025.azurewebsites.net/api/items21
+https://myfunctwrt2025.azurewebsites.net/api/items2?code=<>

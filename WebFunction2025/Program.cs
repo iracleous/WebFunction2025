@@ -1,13 +1,20 @@
 using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using WebFunction2025.Services;
+using Microsoft.Extensions.Configuration;
 
-var builder = FunctionsApplication.CreateBuilder(args);
+//FunctionsApplication.CreateBuilder(args);
+var builder = new HostBuilder()
+    .ConfigureFunctionsWebApplication()
+     .ConfigureAppConfiguration(config =>
+     {
+        config.AddEnvironmentVariables(); // Important for Azure!
+     })
+    .ConfigureServices(services =>
+    {
+        services.AddScoped<IStorageService, StorageService>();
+    })
+    .Build();
 
-builder.ConfigureFunctionsWebApplication();
-
-// Application Insights isn't enabled by default. See https://aka.ms/AAt8mw4.
-// builder.Services
-//     .AddApplicationInsightsTelemetryWorkerService()
-//     .ConfigureFunctionsApplicationInsights();
-
-builder.Build().Run();
+builder.Run();

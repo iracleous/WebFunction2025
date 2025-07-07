@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Text.Json; // Required for JSON serialization/deserialization
-using System.IO;       // Required for stream operations
+using System.IO;
 
-namespace MyProductFunctions.Functions;
+namespace WebFunction2025.Functions;
 
 /// <summary>
 /// Represents a product with an ID, Name, Price, and Category.
@@ -77,7 +77,7 @@ public class ProductFunctions
         _logger.LogInformation($"HTTP GET request received for product ID: {id}.");
 
         // Find the product in the in-memory store (case-insensitive ID comparison)
-        var product = ProductStore.Products.FirstOrDefault(p => p.Id.Equals(id, System.StringComparison.OrdinalIgnoreCase));
+        var product = ProductStore.Products.FirstOrDefault(p => p.Id.Equals(id, StringComparison.OrdinalIgnoreCase));
 
         if (product == null)
         {
@@ -113,7 +113,7 @@ public class ProductFunctions
         {
             // If category is provided, filter the products
             var filteredProducts = ProductStore.Products
-                .Where(p => p.Category.Equals(category, System.StringComparison.OrdinalIgnoreCase))
+                .Where(p => p.Category.Equals(category, StringComparison.OrdinalIgnoreCase))
                 .ToList();
             _logger.LogInformation($"Returning products filtered by category: '{category}'. Found {filteredProducts.Count} products.");
             return new OkObjectResult(filteredProducts); // Returns filtered list as JSON
@@ -157,7 +157,7 @@ public class ProductFunctions
             }
 
             // Check if a product with the same ID already exists to prevent duplicates
-            if (ProductStore.Products.Any(p => p.Id.Equals(product.Id, System.StringComparison.OrdinalIgnoreCase)))
+            if (ProductStore.Products.Any(p => p.Id.Equals(product.Id, StringComparison.OrdinalIgnoreCase)))
             {
                 _logger.LogWarning($"Product with ID '{product.Id}' already exists. Returning 409 Conflict.");
                 return new ConflictObjectResult($"Product with ID '{product.Id}' already exists.");
@@ -177,7 +177,7 @@ public class ProductFunctions
             _logger.LogError(jsonEx, "Error deserializing product JSON from request body for creation.");
             return new BadRequestObjectResult($"Invalid JSON format in request body: {jsonEx.Message}");
         }
-        catch (System.Exception ex)
+        catch (Exception ex)
         {
             // Catch any other unexpected exceptions during the process
             _logger.LogError(ex, "An unexpected error occurred while attempting to create the product.");
@@ -214,14 +214,14 @@ public class ProductFunctions
 
             // Validation: Ensure the deserialized product is not null, its ID is valid,
             // and the ID in the body matches the ID from the route.
-            if (updatedProduct == null || string.IsNullOrWhiteSpace(updatedProduct.Id) || !updatedProduct.Id.Equals(id, System.StringComparison.OrdinalIgnoreCase))
+            if (updatedProduct == null || string.IsNullOrWhiteSpace(updatedProduct.Id) || !updatedProduct.Id.Equals(id, StringComparison.OrdinalIgnoreCase))
             {
                 _logger.LogError("Invalid update data or ID mismatch between route and body. Returning 400 Bad Request.");
                 return new BadRequestObjectResult("Invalid product data or ID mismatch. Body 'Id' must match route 'id'.");
             }
 
             // Find the existing product in the store to update
-            var existingProduct = ProductStore.Products.FirstOrDefault(p => p.Id.Equals(id, System.StringComparison.OrdinalIgnoreCase));
+            var existingProduct = ProductStore.Products.FirstOrDefault(p => p.Id.Equals(id, StringComparison.OrdinalIgnoreCase));
 
             if (existingProduct == null)
             {
@@ -243,7 +243,7 @@ public class ProductFunctions
             _logger.LogError(jsonEx, "Error deserializing product JSON from request body for update.");
             return new BadRequestObjectResult($"Invalid JSON format in request body: {jsonEx.Message}");
         }
-        catch (System.Exception ex)
+        catch (Exception ex)
         {
             // Catch any other unexpected exceptions
             _logger.LogError(ex, "An unexpected error occurred while updating the product.");
@@ -271,7 +271,7 @@ public class ProductFunctions
         _logger.LogInformation($"HTTP DELETE request received for product ID: {id}.");
 
         // Find the product to remove from the store
-        var productToRemove = ProductStore.Products.FirstOrDefault(p => p.Id.Equals(id, System.StringComparison.OrdinalIgnoreCase));
+        var productToRemove = ProductStore.Products.FirstOrDefault(p => p.Id.Equals(id, StringComparison.OrdinalIgnoreCase));
 
         if (productToRemove == null)
         {
