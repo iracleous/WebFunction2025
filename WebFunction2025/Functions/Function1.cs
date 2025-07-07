@@ -26,7 +26,7 @@ public class Function1
            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ping")] HttpRequest req )
     {
         _logger.LogInformation("Ping function called at {Time}", DateTime.UtcNow);
-        return new OkObjectResult(new { message = "Pang" });
+        return new OkObjectResult(new { message = "Pang " + DateTime.Now.ToString("u") });
     }
 
  

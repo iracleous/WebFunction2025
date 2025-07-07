@@ -5,12 +5,13 @@ namespace WebFunction2025.Services;
 
 public class StorageService : IStorageService
 {
-    private readonly string? _connectionString = Environment.GetEnvironmentVariable("MyStorageConnectionString");
+    private string? _connectionString;
 
     private readonly string _containerName = "myblobcontainer"; // e.g., "mydata"
 
     public async Task SaveStorage(string blobName, string fileContent)
     {
+        _connectionString = Environment.GetEnvironmentVariable("MyStorageConnectionString");
         if (string.IsNullOrEmpty(_connectionString))
         {
             throw new InvalidOperationException("Storage connection string is not configured.");
@@ -31,11 +32,10 @@ public class StorageService : IStorageService
 
             // Convert the string content to a byte array for uploading
             byte[] byteArray = Encoding.UTF8.GetBytes(fileContent);
-            using (MemoryStream stream = new MemoryStream(byteArray))
-            {
+            using  MemoryStream stream = new MemoryStream(byteArray);
                 // Upload the stream to the blob
-                await blobClient.UploadAsync(stream, overwrite: true); // overwrite: true allows overwriting existing blobs
-            }
+            await blobClient.UploadAsync(stream, overwrite: true); // overwrite: true allows overwriting existing blobs
+            
         }
         catch (Azure.RequestFailedException)
         {

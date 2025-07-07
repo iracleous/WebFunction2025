@@ -5,9 +5,6 @@ using WebFunction2025.Services;
 using Microsoft.Extensions.Configuration;
 
 
- 
-
-
 //FunctionsApplication.CreateBuilder(args);
 var builder = new HostBuilder()
     .ConfigureFunctionsWebApplication()
