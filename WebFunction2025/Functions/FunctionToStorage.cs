@@ -28,7 +28,7 @@ public class FunctionToStorage
 
         try { 
             // Save the file content to Azure Blob Storage
-            await _storageService.SaveStorage("filename11.txt", fileContent);
+            await _storageService.SaveStorage("filename _"+DateTime.Now.ToString("u") + ".txt", fileContent);
         }
         catch (Exception ex)
         {
