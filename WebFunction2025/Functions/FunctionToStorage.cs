@@ -26,8 +26,17 @@ public class FunctionToStorage
 
         string fileContent = "Hello, Azure Blob Storage!\nThis is a test file uploaded from C#.";
 
-
-        await _storageService.SaveStorage("filename5.txt", fileContent);
+        try { 
+            // Save the file content to Azure Blob Storage
+            await _storageService.SaveStorage("filename11.txt", fileContent);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while saving to storage.");
+            return new OkObjectResult("Welcome to Status500InternalServerError!");
+            //StatusCodeResult(StatusCodes.Status500InternalServerError);
+        }
+       
 
 
         return new OkObjectResult("Welcome to Azure Functions!");

@@ -39,9 +39,11 @@ public class StorageService : IStorageService
         }
         catch (Azure.RequestFailedException)
         {
+            throw;
         }
         catch (Exception)
         {
+            throw;
         }
     }
 }
