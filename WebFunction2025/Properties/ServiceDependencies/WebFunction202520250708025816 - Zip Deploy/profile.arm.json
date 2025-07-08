@@ -21,7 +21,7 @@
     },
     "resourceName": {
       "type": "string",
-      "defaultValue": "myFunctwrt2025",
+      "defaultValue": "WebFunction202520250708025816",
       "metadata": {
         "description": "Name of the main resource to be created by this template."
       }

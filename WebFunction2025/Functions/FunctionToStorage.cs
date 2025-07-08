@@ -27,13 +27,9 @@ public class FunctionToStorage
         string fileContent = "Hello, Azure Blob Storage!\nThis is a test file uploaded from C#.";
 
             await Task.Delay(1); // Simulate some processing delay
-        string? _connectionString = "";
-
+       
         try { 
-_connectionString = Environment.GetEnvironmentVariable("MyStorageConnectionString");
-            await Task.Delay(1); // Simulate some processing delay
-                                    // Save the file content to Azure Blob Storage
-              //      await _storageService.SaveStorage("filename _"+DateTime.Now.ToString("u") + ".txt", fileContent);
+           await _storageService.SaveStorage("filename _"+DateTime.Now.ToString("u") + ".txt", fileContent);
         }
         catch (Exception ex)
         {
@@ -44,6 +40,6 @@ _connectionString = Environment.GetEnvironmentVariable("MyStorageConnectionStrin
        
 
 
-        return new OkObjectResult("Welcome to Azure Functions! "+ _connectionString);
+        return new OkObjectResult("Welcome to Azure Functions! " + DateTime.Now.ToString("u"));
     }
 }
